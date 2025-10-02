@@ -1,4 +1,4 @@
-# Liberta Browser
+# Liberta
 
 **Liberta** est un navigateur web open source, sécurisé, léger, compartimenté, et indépendant de Chromium. Il est conçu pour offrir à l'utilisateur un contrôle total sur sa vie numérique, sans dépendance à Google ni à des serveurs tiers.
 
