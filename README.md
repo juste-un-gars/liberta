@@ -1,123 +1,78 @@
 🌐 Liberta – Navigateur web open source et souverain
 
-Liberta est un navigateur open source, sécurisé, léger, et indépendant de Chromium.
-Son objectif est de redonner le contrôle total à l’utilisateur sur sa vie numérique : pas de Google, pas de télémétrie cachée, pas de dépendance à des serveurs tiers.
+Liberta est un navigateur web open source, sécurisé, léger, et indépendant de Chromium.
+Son but est de redonner le contrôle total à l’utilisateur sur sa navigation : pas de Google, pas de télémétrie, pas de dépendance à des serveurs tiers.
 
 🎯 Objectifs
 
-Navigateur modulaire et souverain → architecture ouverte, choix transparents, pas d’API opaque.
+Navigateur modulaire et souverain
 
-Compartimentation par site (style Docker) → chaque site fonctionne dans un processus isolé, avec stockage dédié (cookies, cache, localStorage).
+Isolation par site (chaque domaine fonctionne dans un conteneur/processus séparé)
 
-Sécurité renforcée et permissions explicites → aucun accès au micro, caméra, clipboard ou fichiers sans consentement explicite.
+Sécurité renforcée et permissions explicites
 
-Multilingue → anglais, français, espagnol, allemand dès la v1.
+Multilingue (anglais, français, espagnol, allemand)
 
-Synchronisation sans serveur → export/import chiffré, support futur du pair-à-pair (ex : CRDT, Syncthing).
+Synchronisation sans serveur (export/import chiffré, pair-à-pair à terme)
 
-Mises à jour fiables → d’abord via GitHub Releases, puis prévoir un miroir auto-hébergé.
-
-👉 À faire :
-Commence simple (rendu, JS, sandbox minimal) puis ajoute ces objectifs au fur et à mesure.
+Mises à jour fiables (GitHub Releases + miroirs)
 
 🧱 Architecture
 
-Langage principal : Rust (sécurité mémoire, async performant).
+Langage principal : Rust
 
-Moteur de rendu HTML/CSS : Servo (expérimental mais Rust natif) ou Ladybird (projet jeune mais actif).
+Moteur de rendu HTML/CSS : Servo ou Ladybird (plan B : WebKitGTK)
 
-Plan B recommandé : WebKitGTK, plus mature.
+Moteur JavaScript : QuickJS (léger) ou SpiderMonkey (compatible)
 
-Moteur JavaScript : SpiderMonkey (Firefox) ou QuickJS (léger mais moins compatible).
+UI : Tauri ou egui (léger et multiplateforme)
 
-UI : Tauri ou egui (léger, multiplateforme). GTK comme solution plus stable.
+Réseau : Hyper + support HTTP/3 et QUIC
 
-Réseau : Hyper + QUIC/HTTP3 (Rust natif).
+Sandboxing : isolation par process, namespaces Linux, seccomp
 
-Sandboxing : isolation par process, namespaces Linux, seccomp (pas besoin de Docker).
-
-Stockage cloisonné : chaque site = son propre répertoire chiffré.
-
-👉 À faire :
-Choisir un moteur de rendu + un moteur JS pour le MVP. Le reste peut venir après.
+Stockage cloisonné : cookies, cache et localStorage isolés par site
 
 🔐 Sécurité
 
-Isolation stricte entre domaines (un site ne peut pas lire les cookies d’un autre).
+Isolation stricte entre domaines
 
-Permissions explicites via une interface claire (caméra, micro, clipboard, etc.).
+Pas de télémétrie ni dépendances externes
 
-Pas de télémétrie ni de services tiers.
+Chiffrement local des données sensibles
 
-Chiffrement local pour mots de passe et cookies sensibles.
-
-Analyse de scripts via heuristiques (type NoScript intelligent).
-
-L’IA peut venir plus tard : commence par un moteur de règles simples.
-
-👉 À faire :
-Implémenter d’abord une UI permissions claire (genre cadenas en barre d’adresse), puis un blocage par défaut du JS non sûr.
+Permissions explicites pour micro, caméra, clipboard, fichiers, etc.
 
 🎬 Fonctionnalités
 
-Blocage automatique des vidéos autoplay.
+Blocage automatique des vidéos autoplay
 
-Bouton d’autorisations en haut à gauche de la barre d’adresse.
+Bouton autorisations en barre d’adresse (remplace le cadenas Chrome/Firefox)
 
 Profils de navigation :
 
-Lecture seule → pas de JS ni cookies persistants
+Lecture seule (pas de JS ni cookies persistants)
 
-Authentifié → cookies/session normaux
+Authentifié (sessions normales)
 
-Créatif → accès médias et clipboard autorisés
+Créatif (accès clipboard, médias, stockage local étendu)
 
-Risqué → tout activé, pour sites non fiables
-
-👉 À faire :
-Les profils peuvent être un mode de navigation simple au début (Lecture seule vs Authentifié). Ajoute les autres ensuite.
+Risqué (tout activé, sites non fiables)
 
 🌍 Multilingue
 
-Langues supportées : anglais, français, espagnol, allemand.
+Anglais, français, espagnol, allemand
 
-Traductions stockées dans des fichiers JSON pour permettre la contribution communautaire.
+Traductions dans des fichiers JSON (extensible par la communauté)
 
-👉 À faire :
-Préparer la structure i18n dès le départ (fichiers JSON séparés).
+🚀 Roadmap MVP
 
-📌 Roadmap MVP réaliste
+Prototype minimal : rendu HTML/CSS + moteur JS basique + UI simple
 
-Phase 1 – Prototype minimal
+Cloisonnement : processus isolés + stockage séparé
 
-Rendu HTML + CSS (Servo/Ladybird/WebKitGTK)
+Sécurité : gestion des permissions explicites
 
-Moteur JS basique (QuickJS pour commencer)
+Confort utilisateur : profils, blocage vidéos, multilingue
 
-Ouverture d’une page web statique
-
-UI simple (adresse + bouton reload)
-
-Phase 2 – Cloisonnement et sécurité
-
-Processus isolés par domaine
-
-Stockage séparé par site
-
-Permissions explicites (caméra, micro, clipboard)
-
-Phase 3 – UX et confort
-
-Profils de navigation
-
-Blocage vidéos autoplay
-
-Interface multilingue
-
-Phase 4 – Avancé
-
-Synchronisation sans serveur
-
-Analyse de scripts
-
-Mises à jour décentralisées
+Fonctionnalités avancées : synchro sans serveur, mises à jour décentralisées
